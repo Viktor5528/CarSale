@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace Car.Enums
 {
-    public class Enum
-    {
+    
         public enum EngineType
         {
             Electro = 1,
@@ -32,5 +31,5 @@ namespace Car.Enums
             Van,
             Truck
         }
-    }
+    
 }

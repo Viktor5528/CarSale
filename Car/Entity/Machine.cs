@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Car.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static Car.Enums.Enum;
+
 
 namespace Car.Entity
 {
