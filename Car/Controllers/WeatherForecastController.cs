@@ -24,8 +24,8 @@ namespace Car.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet("{p1}")]
+        public IEnumerable<WeatherForecast> Get(int p1, int p2)
         {
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

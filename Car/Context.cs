@@ -13,7 +13,7 @@ namespace Car
         public Context(DbContextOptions<Context> dbContext) : base(dbContext)
         {
             //Database.EnsureDeleted();
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder mb)
         {
