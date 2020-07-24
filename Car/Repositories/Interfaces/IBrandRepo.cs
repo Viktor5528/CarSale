@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Car.Repositories.Interfaces
 {
-    interface IBrandRepo
+    public interface IBrandRepo
     {
         int Create(Brand brand);
         Brand GetById(int Id);
-        void Delete(Brand brand);
+        void Delete(string name);
         void Delete(int id);
         void Update(Brand brand);
         List<Brand> GetAll();

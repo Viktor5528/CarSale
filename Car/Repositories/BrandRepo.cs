@@ -43,9 +43,14 @@ namespace Car.Repositories
                 db.SaveChanges();
             }
         }
-        public void Delete(Brand brand)
+        public void Delete(string name)
         {
-            db.Brands.Remove(brand);
+            var brand = db.Brands.FirstOrDefault(x => x.Name == name);
+            if (brand != null)
+            {
+                db.Brands.Remove(brand);
+                db.SaveChanges();
+            }
         }
     }
 }
