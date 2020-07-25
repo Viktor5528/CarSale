@@ -29,15 +29,20 @@ namespace Car.Controllers
         {
             _brand.Delete(id);
         }
-        [HttpDelete("{name}")]
+        [HttpDelete("ByName/{name}")]
         public void Delete(string name)
         {
             _brand.Delete(name);
         }
         [HttpPost]
-        public int Create(Brand brand)
+        public int Create(string brand)
         {
-            return _brand.Create(brand);
+            return _brand.Create(new Brand { Name = brand });
+        }
+        [HttpPut]
+        public void Update(Brand brand)
+        {
+            _brand.Update(brand);
         }
     }
 }

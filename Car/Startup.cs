@@ -1,5 +1,7 @@
 
 
+using Car.Repositories;
+using Car.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +22,10 @@ namespace Car
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddTransient<IBrandRepo, BrandRepo>();
+            services.AddTransient<ICommentRepo, CommentRepo>();
+            services.AddTransient<IUserRepo, UserRepo>();
+            services.AddTransient<IMachineRepo, MachineRepo>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fixtures API", Version = "v1" });
@@ -32,7 +38,7 @@ namespace Car
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

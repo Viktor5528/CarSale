@@ -8,7 +8,7 @@ namespace Car.Entity
     {
         public int Id { get; set; }
         public int BrandId { get; set; }
-        public int BodyId { get; set; }
+        public BodyType BodyType { get; set; }
         public List<Comment> Comments { get; set; } = new List<Comment>();
         public EngineType EngineType { get; set; }
     }

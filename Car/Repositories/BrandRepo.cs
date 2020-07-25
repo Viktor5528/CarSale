@@ -1,15 +1,12 @@
 ﻿using Car.Entity;
 using Car.Repositories.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Car.Repositories
 {
-    public class BrandRepo:IBrandRepo
-    {   
+    public class BrandRepo : IBrandRepo
+    {
         Context db;
         public BrandRepo(Context context)
         {
