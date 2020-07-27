@@ -1,4 +1,5 @@
 ﻿using Car.Entity;
+using Car.Enums;
 using System.Collections.Generic;
 
 namespace Car.Repositories.Interfaces
@@ -10,5 +11,6 @@ namespace Car.Repositories.Interfaces
         void Update(Machine machine);
         List<Machine> GetAll();
         Machine GetById(int id);
+        List<Machine> GetAllFilter(BodyType? body, EngineType? engine, int? brandId);
     }
 }

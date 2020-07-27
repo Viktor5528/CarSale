@@ -3,7 +3,6 @@ using Car.Enums;
 using Car.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Car.Controllers
 {
@@ -12,9 +11,11 @@ namespace Car.Controllers
     public class MachineController : ControllerBase
     {
         IMachineRepo _machine;
-        public MachineController(IMachineRepo machine)
+        IBrandRepo _brand;
+        public MachineController(IMachineRepo machine, IBrandRepo brand)
         {
             _machine = machine;
+            _brand = brand;
         }
         [HttpGet]
         public List<Machine> GetAll()
@@ -33,9 +34,13 @@ namespace Car.Controllers
         }
 
         [HttpPost]
-        public int Create(int brandId, BodyType bodyType, EngineType engineType)
+        public IActionResult Create(int brandId, BodyType bodyType, EngineType engineType)
         {
-            return _machine.Create(new Machine { BrandId = brandId, BodyType = bodyType, EngineType = engineType });
+            if (brandId <= 0 || _brand.GetById(brandId) == null)
+            {
+                return BadRequest("Message");
+            }
+            return Ok(_machine.Create(new Machine { BrandId = brandId, BodyType = bodyType, EngineType = engineType }));
         }
         [HttpPut]
         public void Update(Machine machine)
@@ -43,9 +48,15 @@ namespace Car.Controllers
             _machine.Update(machine);
         }
         [HttpGet("comments")]
-        public List<Comment> GetAllComments(Machine machine)
+        public List<Comment> GetAllComments(int machineId)
         {
-            return machine.Comments.ToList();
+            var machine = _machine.GetById(machineId);
+            return machine.Comments;
+        }
+        [HttpGet("filter")]
+        public List<Machine> GetAllFilter(BodyType? body, EngineType? engine, int? brandId)
+        {
+            return _machine.GetAllFilter(body, engine, brandId);
         }
     }
 }
