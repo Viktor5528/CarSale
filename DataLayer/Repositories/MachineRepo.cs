@@ -1,6 +1,7 @@
 ﻿using Car.Entity;
 using Car.Enums;
 using Car.Repositories.Interfaces;
+using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,18 +43,11 @@ namespace Car.Repositories
         public List<Machine> GetAllFilter(BodyType? body, EngineType? engine, int? brandId)
         {
             var machines = db.Machines.AsQueryable();
-            if (body != null)
-            {
-                machines = machines.Where(x => x.BodyType == body.Value);
-            }
-            if (engine != null)
-            {
-                machines = machines.Where(x => x.EngineType == engine.Value);
-            }
-            if (brandId != null)
-            {
-                machines = machines.Where(x => x.BrandId == brandId.Value);
-            }
+            machines = machines
+                .WhereIfCondition(x => x.BodyType == body.Value, body.HasValue)
+                .WhereIfCondition(x => x.EngineType == engine.Value, engine.HasValue)
+                .WhereIfCondition(x => x.BrandId == brandId.Value, brandId.HasValue);
+           
             return machines.ToList();
         }
     }
