@@ -1,5 +1,7 @@
-﻿using Car.Entity;
+﻿using AutoMapper;
+using Car.Entity;
 using Car.Repositories.Interfaces;
+using DataLayer.Entity.EntityViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -10,9 +12,11 @@ namespace Car.Controllers
     public class CommentController : ControllerBase
     {
         ICommentRepo _comment;
-        public CommentController(ICommentRepo comment)
+        IMapper _mapper;
+        public CommentController(ICommentRepo comment, IMapper mapper)
         {
             _comment = comment;
+            _mapper = mapper;
         }
         [HttpGet]
         public List<Comment> GetAll()
@@ -31,9 +35,9 @@ namespace Car.Controllers
         }
 
         [HttpPost]
-        public int Create(string message, int userId, int machineId)
+        public int Create(CreateCommentViewModel model)
         {
-            return _comment.Create(new Comment { MachineId = machineId, Message = message, UserId = userId });
+            return _comment.Create(_mapper.Map<Comment>(model));
         }
         [HttpPut]
         public void Update(Comment comment)

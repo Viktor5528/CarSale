@@ -1,5 +1,7 @@
-﻿using Car.Entity;
+﻿using AutoMapper;
+using Car.Entity;
 using Car.Repositories.Interfaces;
+using DataLayer.Entity.EntityViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -13,9 +15,11 @@ namespace Car.Controllers
     public class UserController : ControllerBase
     {
         IUserRepo _user;
-        public UserController(IUserRepo user)
+        IMapper _mapper;
+        public UserController(IUserRepo user, IMapper mapper)
         {
             _user = user;
+            _mapper = mapper;
         }
         [HttpGet]
         public List<User> GetAll()
@@ -35,9 +39,9 @@ namespace Car.Controllers
         }
 
         [HttpPost]
-        public int Create(int age, string name, string login, string password)
+        public int Create(CreateUserViewModel model)
         {
-            return _user.Create(new User { Age = age, Name = name, Login = login, Password = HashHelper.GetMd5(password) });
+            return _user.Create(_mapper.Map<User>(model));
         }
         [HttpPut]
         public void Update(User user)

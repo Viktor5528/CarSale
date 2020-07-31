@@ -1,5 +1,7 @@
-﻿using Car.Entity;
+﻿using AutoMapper;
+using Car.Entity;
 using Car.Repositories.Interfaces;
+using DataLayer.Entity.EntityViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -10,9 +12,11 @@ namespace Car.Controllers
     public class BrandController : ControllerBase
     {
         IBrandRepo _brand;
-        public BrandController(IBrandRepo brand)
+        IMapper _mapper;
+        public BrandController(IBrandRepo brand, IMapper mapper)
         {
             _brand = brand;
+            _mapper = mapper;
         }
         [HttpGet]
         public List<Brand> GetAll()
@@ -35,9 +39,9 @@ namespace Car.Controllers
             _brand.Delete(name);
         }
         [HttpPost]
-        public int Create(string brand)
+        public int Create(CreateBrandViewModel model)
         {
-            return _brand.Create(new Brand { Name = brand });
+            return _brand.Create(_mapper.Map<Brand>(model));
         }
         [HttpPut]
         public void Update(Brand brand)

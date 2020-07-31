@@ -1,5 +1,6 @@
 ﻿
 
+using AutoMapper;
 using Car.Repositories;
 using Car.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -30,6 +31,7 @@ namespace Car
             services.AddTransient<ICommentRepo, CommentRepo>();
             services.AddTransient<IUserRepo, UserRepo>();
             services.AddTransient<IMachineRepo, MachineRepo>();
+            services.AddAutoMapper(typeof(Program).Assembly);
             services.AddSwaggerGen(c =>
             {
 
