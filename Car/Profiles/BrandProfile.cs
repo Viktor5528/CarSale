@@ -9,7 +9,7 @@ namespace Car.Profiles
         public BrandProfile()
         {
             CreateMap<CreateBrandViewModel, Brand>()
-                .ForMember(cbm => cbm.Name, x => x.MapFrom(br => br.Brand));
+                .ForMember(br => br.Name, x => x.MapFrom(cbm => cbm.Brand));
         }
     }
 }

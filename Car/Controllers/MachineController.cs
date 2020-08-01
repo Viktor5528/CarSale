@@ -1,6 +1,8 @@
-﻿using Car.Entity;
+﻿using AutoMapper;
+using Car.Entity;
 using Car.Enums;
 using Car.Repositories.Interfaces;
+using DataLayer.Entity.EntityViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -12,10 +14,12 @@ namespace Car.Controllers
     {
         IMachineRepo _machine;
         IBrandRepo _brand;
-        public MachineController(IMachineRepo machine, IBrandRepo brand)
+        IMapper _mapper;
+        public MachineController(IMachineRepo machine, IBrandRepo brand, IMapper mapper)
         {
             _machine = machine;
             _brand = brand;
+            _mapper = mapper;
         }
         [HttpGet]
         public List<Machine> GetAll()
@@ -34,13 +38,13 @@ namespace Car.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(int brandId, BodyType bodyType, EngineType engineType)
+        public IActionResult Create(CreateMachineViewModel model)
         {
-            if (brandId <= 0 || _brand.GetById(brandId) == null)
+            if (model.BrandId <= 0 || _brand.GetById(model.BrandId) == null)
             {
                 return BadRequest("Message");
             }
-            return Ok(_machine.Create(new Machine { BrandId = brandId, BodyType = bodyType, EngineType = engineType }));
+            return Ok(_machine.Create(_mapper.Map<Machine>(model)));
         }
         [HttpPut]
         public void Update(Machine machine)

@@ -5,8 +5,6 @@ using DataLayer.Entity.EntityViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace Car.Controllers
 {
@@ -30,6 +28,10 @@ namespace Car.Controllers
         [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult GetById(int id)
         {
+            if (_user.GetById(id) == null || id>5)
+            {
+                return BadRequest("message");
+            }
             return Ok(_user.GetById(id));
         }
         [HttpDelete("{id}")]
@@ -48,6 +50,6 @@ namespace Car.Controllers
         {
             _user.Update(user);
         }
-        
+
     }
 }
