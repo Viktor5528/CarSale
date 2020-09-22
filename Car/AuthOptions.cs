@@ -7,7 +7,7 @@ namespace TokenApp
     {
         public const string ISSUER = "MyAuthServer"; // издатель токена
         public const string AUDIENCE = "MyAuthClient"; // потребитель токена
-        const string KEY = "mysupersecret_secretkey!123";   // ключ дляqweqweqweqw шифрации
+        const string KEY = "mysupersecret_secretkey!123";   // ключ дqweqweляqweqweqweqw шифрации
         public const int LIFETIME = 60000; // время жизни токена s
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
         {
